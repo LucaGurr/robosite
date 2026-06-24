@@ -37,10 +37,8 @@
     </div>
 
 <script>
-    // --- MOBIL-STABILES LOGGING AN DIE VERCEL API ---
     const VercelLogger = {
         send: function(eventName, data) {
-            // Basisdaten, die bei jedem Event automatisch ermittelt werden
             const logPayload = {
                 event: eventName,
                 timestamp: new Date().toISOString(),
@@ -48,20 +46,16 @@
                 userAgent: navigator.userAgent,
                 screenResolution: `${window.screen.width}x${window.screen.height}`,
                 language: navigator.language,
-                // Safari-sichere Abfrage der Netzwerkverbindung
                 connection: navigator.connection ? {
                     effectiveType: navigator.connection.effectiveType,
                     downlink: navigator.connection.downlink
                 } : 'unknown'
             };
 
-            // Zusammenführen von Basisdaten und spezifischen Event-Daten
             const fullPayload = { ...logPayload, ...data };
 
-            // 1. Ausgabe in der lokalen Browser-Konsole (für PC-Tests hilfreich)
             console.log(`[Local] ${eventName}`, fullPayload);
 
-            // 2. AKTIVER PUSH AN VERCEL (Sendet die Daten vom Smartphone zum Server)
             fetch('/api/log', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -69,8 +63,6 @@
             }).catch(err => console.error("Log telemetry failed:", err));
         }
     };
-
-    // Globaler Error-Tracker (Fängt JavaScript-Abstürze auf dem Smartphone ab)
     window.addEventListener('error', (event) => {
         VercelLogger.send('JS_ERROR', {
             message: event.message,
@@ -80,17 +72,14 @@
         });
     });
 
-    // Tracker für nicht abgefangene Promise-Rejections (z.B. fehlgeschlagene API-Aufrufe)
     window.addEventListener('unhandledrejection', (event) => {
         VercelLogger.send('PROMISE_REJECTION', {
             reason: event.reason ? event.reason.toString() : 'Unknown reason'
         });
     });
 
-    // Performance & Ladezeiten Tracker (Kompatibel mit iOS Safari & Android)
     window.addEventListener('load', () => {
         setTimeout(() => {
-            // Nutzung der modernen Performance Navigation Timing API
             const navEntries = performance.getEntriesByType('navigation');
             if (navEntries.length > 0) {
                 const timing = navEntries[0];
@@ -100,14 +89,12 @@
                     domReadyMs: timing.domContentLoadedEventEnd
                 });
             }
-        }, 1000); // 1 Sekunde Verzögerung, um Messungen nicht zu verfälschen
+        }, 1000);
     });
 
-    // --- DIE GSAP ANIMATIONEN ---
     function initAnimations() {
         const tl = gsap.timeline();
 
-        // Event: Preloader-Animation startet
         VercelLogger.send('PRELOADER_FADE_START', { gsapVersion: gsap.version });
 
         tl.to("#preloader", {
@@ -121,7 +108,6 @@
             }
         });
 
-        // Text-Animationen (Einblenden von links nach rechts per Stagger)
         tl.from(".animBody", {
             opacity: 0,
             x: -50,             
@@ -131,7 +117,6 @@
         }, "+=0.2");
     }
 
-    // Sicherstellen, dass das Skript erst läuft, wenn das DOM bereit ist
     if (document.readyState === "complete" || document.readyState === "interactive") {
         initAnimations();
     } else {
