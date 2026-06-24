@@ -1,32 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="de"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>HASE Roboarm Website</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
     <h1>HASE Roboarm website</h1>
     <h2>Wer sind wir?</h2>
-    <p>Wir sind eine Gruppe von Schülern am Humboldt-gymnasium Vaterstetten, welche einen Roboterarm, welcher sich über CLI sowie Web-UI steuern lässt, bauen.</p>
+    <p>Wir sind eine Gruppe von Schülern am Humboldt-Gymnasium Vaterstetten, welche einen Roboterarm, welcher sich über CLI sowie Web-UI steuern lässt, bauen.</p>
     <h2>Die Besonderheit</h2>
-    <p>Das besondere an unserem Arm ist nicht nur die Bewegung der Motoren mittels inverse Kinematics sowie einem angepassten Bresenham-alghorithmus, sondern insbesondere auch der Austauschbare Endeffektor, an den verschiedene Module angeschlossen werden können.</p>
+    <p>Das besondere an unserem Arm ist nicht nur die Bewegung der Motoren mittels Inverse Kinematics sowie einem angepassten Bresenham-Algorithmus, sondern insbesondere auch der austauschbare Endeffektor, an den verschiedene Module angeschlossen werden können.</p>
+
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        window.addEventListener("load", () => {
+            gsap.to("#preloader", {
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    document.getElementById("preloader").style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
-<div id="preloader">
-    <div class="spinner"></div>
-</div>
 </html>
-<script>
-    window.addEventListener("load", () => {
-    // Fade out and remove the preloader
-    gsap.to("#preloader", {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.inOut",
-        onComplete: () => {
-            document.getElementById("preloader").style.display = "none";
-        }
-    });
-});
-</script>
