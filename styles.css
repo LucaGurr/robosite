@@ -10,21 +10,37 @@ body {
 
 h1 {
   font-size: 35px;
-  font-weight: normal;
-  margin-top: 5px;
-  color:#3498db
 }
 h2 {
-    font-size: 30;
-    font-weight: normal;
-    margin-top: 5px;
-    color: #3498db;
+  font-size: 30;
 }
 
 p1 {
   background-color: #000000;
   color: #ffffff; 
 }
+
+#heading {
+  font-weight: normal;
+  margin-top: 5px;
+  color: #3498db;
+}
+
+/*
+Source - https://stackoverflow.com/a/6382036
+Posted by Anton Strogonoff, modified by community. See post 'Timeline' for change history
+Retrieved 2026-06-24, License - CC BY-SA 4.0
+*/
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid aqua;
+  margin: 1em 0;
+  padding: 0;
+}
+
 
 #preloader {
     position: fixed;
