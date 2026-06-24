@@ -7,9 +7,6 @@
     <title>HASE Roboarm Website</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 <body>
 
@@ -40,9 +37,10 @@
     </div>
 
 <script>
-    // --- UMFANGREICHES VERCEL & CLIENT LOGGING ---
+    // --- MOBIL-STABILES LOGGING AN DIE VERCEL API ---
     const VercelLogger = {
         send: function(eventName, data) {
+            // Basisdaten, die bei jedem Event automatisch ermittelt werden
             const logPayload = {
                 event: eventName,
                 timestamp: new Date().toISOString(),
@@ -50,67 +48,66 @@
                 userAgent: navigator.userAgent,
                 screenResolution: `${window.screen.width}x${window.screen.height}`,
                 language: navigator.language,
+                // Safari-sichere Abfrage der Netzwerkverbindung
                 connection: navigator.connection ? {
                     effectiveType: navigator.connection.effectiveType,
-                    downlink: navigator.connection.downlink,
-                    rtt: navigator.connection.rtt
-                } : 'unknown',
-                ...data
+                    downlink: navigator.connection.downlink
+                } : 'unknown'
             };
 
-            // Gibt die Daten in der Browser-Konsole aus (Vercel liest Client-Logs im Edge-Netzwerk mit)
-            console.log(`[Vercel-Telemetry] [${eventName}]`, logPayload);
+            // Zusammenführen von Basisdaten und spezifischen Event-Daten
+            const fullPayload = { ...logPayload, ...data };
 
-            // Falls ihr Vercel Custom Events nutzt, wird es hier an Vercel Analytics übergeben
-            if (window.va) {
-                window.va('event', { name: eventName, data: logPayload });
-            }
+            // 1. Ausgabe in der lokalen Browser-Konsole (für PC-Tests hilfreich)
+            console.log(`[Local] ${eventName}`, fullPayload);
+
+            // 2. AKTIVER PUSH AN VERCEL (Sendet die Daten vom Smartphone zum Server)
+            fetch('/api/log', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event: eventName, data: fullPayload })
+            }).catch(err => console.error("Log telemetry failed:", err));
         }
     };
 
-    // Globaler Error-Tracker (Fangt alle JavaScript-Fehler auf der Seite ab)
+    // Globaler Error-Tracker (Fängt JavaScript-Abstürze auf dem Smartphone ab)
     window.addEventListener('error', (event) => {
         VercelLogger.send('JS_ERROR', {
             message: event.message,
             filename: event.filename,
             lineno: event.lineno,
-            colno: event.colno,
             stack: event.error ? event.error.stack : null
         });
     });
 
-    // Tracker für nicht abgefangene Promise-Rejections
+    // Tracker für nicht abgefangene Promise-Rejections (z.B. fehlgeschlagene API-Aufrufe)
     window.addEventListener('unhandledrejection', (event) => {
         VercelLogger.send('PROMISE_REJECTION', {
             reason: event.reason ? event.reason.toString() : 'Unknown reason'
         });
     });
 
-    // Performance & Ladezeiten Tracker
+    // Performance & Ladezeiten Tracker (Kompatibel mit iOS Safari & Android)
     window.addEventListener('load', () => {
-        // Wartet kurz, bis die Performance-Daten finalisiert sind
         setTimeout(() => {
-            if (window.performance && window.performance.timing) {
-                const t = window.performance.timing;
-                const pageLoadTime = t.loadEventEnd - t.navigationStart;
-                const dnsTime = t.domainLookupEnd - t.domainLookupStart;
-                const ttfb = t.responseStart - t.navigationStart; // Time to First Byte
-
+            // Nutzung der modernen Performance Navigation Timing API
+            const navEntries = performance.getEntriesByType('navigation');
+            if (navEntries.length > 0) {
+                const timing = navEntries[0];
                 VercelLogger.send('PERFORMANCE_METRICS', {
-                    pageLoadTimeMs: pageLoadTime,
-                    dnsLookupTimeMs: dnsTime,
-                    ttfbMs: ttfb,
-                    domReadyTimeMs: t.domContentLoadedEventEnd - t.navigationStart
+                    pageLoadTimeMs: timing.duration,
+                    ttfbMs: timing.responseStart - timing.startTime, // Time to First Byte
+                    domReadyMs: timing.domContentLoadedEventEnd
                 });
             }
-        }, 1000);
+        }, 1000); // 1 Sekunde Verzögerung, um Messungen nicht zu verfälschen
     });
 
-    // --- DIE ANIMATIONEN ---
+    // --- DIE GSAP ANIMATIONEN ---
     function initAnimations() {
         const tl = gsap.timeline();
 
-        // Event: Preloader startet das Ausblenden
+        // Event: Preloader-Animation startet
         VercelLogger.send('PRELOADER_FADE_START', { gsapVersion: gsap.version });
 
         tl.to("#preloader", {
@@ -119,11 +116,12 @@
             ease: "power2.inOut",
             onComplete: () => {
                 document.getElementById("preloader").style.display = "none";
-                // Event: Preloader komplett verschwunden
+                // Event: Preloader ist vollständig ausgeblendet
                 VercelLogger.send('PRELOADER_FADE_COMPLETE');
             }
         });
 
+        // Text-Animationen (Einblenden von links nach rechts per Stagger)
         tl.from(".animBody", {
             opacity: 0,
             x: -50,             
@@ -133,6 +131,7 @@
         }, "+=0.2");
     }
 
+    // Sicherstellen, dass das Skript erst läuft, wenn das DOM bereit ist
     if (document.readyState === "complete" || document.readyState === "interactive") {
         initAnimations();
     } else {
