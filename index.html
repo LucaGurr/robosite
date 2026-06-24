@@ -16,5 +16,17 @@
 <div id="preloader">
     <div class="spinner"></div>
 </div>
-
 </html>
+<script>
+    window.addEventListener("load", () => {
+    // Fade out and remove the preloader
+    gsap.to("#preloader", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: () => {
+            document.getElementById("preloader").style.display = "none";
+        }
+    });
+});
+</script>
