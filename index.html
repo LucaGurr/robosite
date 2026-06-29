@@ -162,7 +162,7 @@
         </div>
 
         <div class="warning-box">
-            <strong>ACHTUNG:</strong> Ein 100 µF Elektrolytkondensator muss nahe an den VMOT- und GND-Pins jedes Treibers platziert werden, um induktive Spannungsspitzen beim Abbremsen zu verhindern!
+            <strong>ACHTUNG:</strong> Ein 100 µF Elektrolytkondensator muss nahe an den VMOT- und GND-Pins jedes Treibers platziert werden, um Induktion zu verhindern!
         </div>
     </section>
 
@@ -172,16 +172,16 @@
             <div class="software-block">
                 <h3>rustctl (Hauptprogramm)</h3>
                 <p>Geschrieben in modernem <strong>Rust 1.96.x</strong>. Es nutzt das Crate <code>rppal 0.22.1</code> für GPIO-Steuerung mit wenig Overhead (etwa 40µs delay).</p>
-                <p>Die Bewegung entlang einer Geraden linie erfolgt mittels eines modifizierten <strong>Bresenham-Algorithmus</strong>, der zusätzlich alle Achsen gleichzeitig starten und stoppen lässt.</p>
+                <p>Die Bewegung entlang einer geraden Linie erfolgt mittels eines leicht modifizierten <strong>Bresenham-Algorithmus</strong>, der , als Nebeneffekt, alle Achsen gleichzeitig starten und stoppen lässt.</p>
             </div>
             
             <div class="software-block">
                 <h3>Schritt-Konvertierungsformel</h3>
                 <p>Um Winkelgrad in exakte Motorschritte zu übersetzen, nutzt das System folgende Berechnung:</p>
                 <div class="formula">
-                    Schritte = Winkel * ((Schritte_pro_Umdrehung * Mikroschritte) / 360°) * ÜBERSETZUNG
+                    Schritte = Winkel * ((Schritte_pro_Umdrehung * Mikroschritte) / 360°) * ÜBERSETZUNG (1/1 oder 16/1)
                 </div>
-                <p class="note">Projekt: 1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung, also bei Schulter/Ellbogen).</p>
+                <p class="note">1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung, also bei Schulter/Ellbogen).</p>
             </div>
         </div>
     </section>
