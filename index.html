@@ -45,32 +45,35 @@
                         <th>Achse</th>
                         <th>Motor</th>
                         <th>Gelenk / Funktion</th>
-                        <th>IK-Variable</th>
+                        <th>Inv.Kin.-Variable</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Basisrotation</td>
+                        <td>"Basisrotation"</td>
                         <td>M3</td>
-                        <td>Dreht den gesamten Arm um die vertikale Achse</td>
-                        <td><code>theta_base</code></td>
+                        <td>Dreht den gesamten Arm um die vertikale Achse, Kein Getriebe</td>
+                        <td><code>&theta;_base / theta_base</code></td>
+
                     </tr>
                     <tr>
-                        <td>Schulter</td>
+                        <td>"Schulter"</td>
                         <td>M1</td>
-                        <td>Erstes starres Verbindungsglied</td>
-                        <td><code>theta1</code></td>
+                        <td> Verbindung mir erstem starrem Verbindungsglied, 16:1 Planetargetriebe</td>
+                       <td><code>&theta;1 / theta1</code></td>
+
                     </tr>
                     <tr>
-                        <td>Ellbogen</td>
+                        <td>"Ellbogen"</td>
                         <td>M2</td>
-                        <td>Zweites starres Verbindungsglied</td>
-                        <td><code>theta2</code></td>
+                        <td>Verbindung mit Zweitem starrem Verbindungsglied, 16:1 Planetargetriebe</td>
+                        <td><code>&theta;2 / theta2</code></td>
+
                     </tr>
                     <tr>
-                        <td>Endeffektor</td>
+                        <td>modularer Endeffektor</td>
                         <td>M4</td>
-                        <td>Pins definiert, noch nicht verbunden</td>
+                        <td>Pins bereits definiert und Funktionen erstellt; Endeffektor / Motor-Mount noch nicht konstruiert</td>
                         <td>—</td>
                     </tr>
                 </tbody>
