@@ -1,4 +1,4 @@
-/* Globale Resets & Variablen */
+
 :root {
     --bg-dark: #0f141c;
     --bg-card: #161f2b;
@@ -20,6 +20,9 @@
 
 html {
     scroll-behavior: smooth;
+    /* Firefox Support */
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg-dark);
 }
 
 body {
@@ -30,7 +33,29 @@ body {
     overflow-x: hidden;
 }
 
-/* Header & Navigation */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 20px;
+    border: 2px solid var(--bg-dark);
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-orange); 
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--bg-dark);
+}
 header {
     display: flex;
     justify-content: space-between;
