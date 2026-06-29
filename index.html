@@ -116,7 +116,64 @@
         <h2>Hardware & Elektronik</h2>
         <p>Die Elektronik basiert auf einem Raspberry Pi, welcher vier A4988 Schrittmotortreiber über seine GPIO-Pins ansteuert.</p>
         
-        <iframe src="https://pi.pinout.xyz/" width="482px" height="838px" frameborder="0"></iframe>
+        <section class="pinout" id="pinout">
+        <table aria-label="J8 header, odd pins, left side pins" class="labels left" aria-rowcount="20" aria-colcount="3" cellpadding="0" cellspacing="5">
+            <thead>
+                <tr><th>Pin</th><th>Name</th><th>Function</th>
+            </tr></thead>
+            <tbody>
+            <tr aria-label="Physical pin 1" class="power"><th>1</th><td><a href="#" title="3.3 volt output."><i class="fa-solid fa-bolt"></i>3v3</a></td><td></td></tr>
+            <tr aria-label="Physical pin 2" class="i2c"><th>3</th><td><a href="#">GPIO 2</a></td><td><a href="#" title="I2C 1 data."><i class="fa-solid fa-microchip"></i>I2C1 SDA</a></td></tr>
+            <tr aria-label="Physical pin 3" class="i2c"><th>5</th><td><a href="#">GPIO 3</a></td><td><a href="#" title="I2C 1 clock."><i class="fa-solid fa-microchip"></i>I2C1 SCL</a></td></tr>
+            <tr aria-label="Physical pin 4" class="gpclk"><th>7</th><td><a href="#">GPIO 4</a></td><td><a href="#" title="General purpose clock 0."><i class="fa-solid fa-clock"></i>GPCLK0</a></td></tr>
+            <tr aria-label="Physical pin 5" class="ground"><th>9</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 6" class="gpio"><th>11</th><td><a href="#">GPIO 17</a></td><td></td></tr>
+            <tr aria-label="Physical pin 7" class="gpio"><th>13</th><td><a href="#">GPIO 27</a></td><td></td></tr>
+            <tr aria-label="Physical pin 8" class="gpio"><th>15</th><td><a href="#">GPIO 22</a></td><td></td></tr>
+            <tr aria-label="Physical pin 9" class="power"><th>17</th><td><a href="#" title="3.3 volt output."><i class="fa-solid fa-bolt"></i>3v3</a></td><td></td></tr>
+            <tr aria-label="Physical pin 10" class="spi"><th>19</th><td><a href="#">GPIO 10</a></td><td><a href="#" title="SPI 0 host-out, device-in."><i class="fa-solid fa-magnifying-glass-arrow-right"></i>SPI0 MOSI</a></td></tr>
+            <tr aria-label="Physical pin 11" class="spi"><th>21</th><td><a href="#">GPIO 9</a></td><td><a href="#" title="SPI 0 device-out, host-in"><i class="fa-solid fa-magnifying-glass-arrow-right"></i>SPI0 MISO</a></td></tr>
+            <tr aria-label="Physical pin 12" class="spi"><th>23</th><td><a href="#">GPIO 11</a></td><td><a href="#" title="SPI 0 clock."><i class="fa-solid fa-magnifying-glass-arrow-right"></i>SPI0 SCLK</a></td></tr>
+            <tr aria-label="Physical pin 13" class="ground"><th>25</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 14" class="i2c"><th>27</th><td><a href="#">GPIO 0</a></td><td><a href="#" title="I2C 0 data."><i class="fa-solid fa-microchip"></i>I2C0 SDA</a></td></tr>
+            <tr aria-label="Physical pin 15" class="gpio"><th>29</th><td><a href="#">GPIO 5</a></td><td></td></tr>
+            <tr aria-label="Physical pin 16" class="gpio"><th>31</th><td><a href="#">GPIO 6</a></td><td></td></tr>
+            <tr aria-label="Physical pin 17" class="pwm"><th>33</th><td><a href="#">GPIO 13</a></td><td><a href="#" title="PWM 0 channel 1."><i class="fa-solid fa-wave-square"></i>PWM0 CHAN1</a></td></tr>
+            <tr aria-label="Physical pin 18" class="i2s"><th>35</th><td><a href="#">GPIO 19</a></td><td><a href="#" title="I2S 0 frame select."><i class="fa-solid fa-volume-off"></i>I2S0 WS</a></td></tr>
+            <tr aria-label="Physical pin 19" class="gpio"><th>37</th><td><a href="#">GPIO 26</a></td><td></td></tr>
+            <tr aria-label="Physical pin 20" class="ground"><th>39</th><td><a href="#">Ground</a></td><td></td></tr>
+            </tbody>
+        </table>
+    
+        <table aria-label="J8 header, even pins, right side pins" class="labels right" aria-rowcount="20" aria-colcount="3" cellpadding="0" cellspacing="5">
+            <thead>
+                <tr><th>Pin</th><th>Name</th><th>Function</th>
+            </tr></thead>
+            <tbody>
+            <tr aria-label="Physical pin 1" class="supply"><th>2</th><td><a href="#" title="5 volt output."><i class="fa-solid fa-triangle-exclamation"></i>5v</a></td><td></td></tr>
+            <tr aria-label="Physical pin 2" class="supply"><th>4</th><td><a href="#" title="5 volt output."><i class="fa-solid fa-triangle-exclamation"></i>5v</a></td><td></td></tr>
+            <tr aria-label="Physical pin 3" class="ground"><th>6</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 4" class="uart"><th>8</th><td><a href="#">GPIO 14</a></td><td><a href="#" title="Uart 0 transmit."><i class="fa-solid fa-bug"></i>UART0 TXD</a></td></tr>
+            <tr aria-label="Physical pin 5" class="uart"><th>10</th><td><a href="#">GPIO 15</a></td><td><a href="#" title="Uart 0 receive."><i class="fa-solid fa-bug"></i>UART0 RXD</a></td></tr>
+            <tr aria-label="Physical pin 6" class="i2s"><th>12</th><td><a href="#">GPIO 18</a></td><td><a href="#" title="I2S audio clock."><i class="fa-solid fa-volume-off"></i>I2S0 SCLK</a></td></tr>
+            <tr aria-label="Physical pin 7" class="ground"><th>14</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 8" class="gpio"><th>16</th><td><a href="#">GPIO 23</a></td><td></td></tr>
+            <tr aria-label="Physical pin 9" class="gpio"><th>18</th><td><a href="#">GPIO 24</a></td><td></td></tr>
+            <tr aria-label="Physical pin 10" class="ground"><th>20</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 11" class="gpio"><th>22</th><td><a href="#">GPIO 25</a></td><td></td></tr>
+            <tr aria-label="Physical pin 12" class="spi"><th>24</th><td><a href="#">GPIO 8</a></td><td><a href="#" title="SPI 0 chip-select 0."><i class="fa-solid fa-magnifying-glass-arrow-right"></i>SPI0 CE0</a></td></tr>
+            <tr aria-label="Physical pin 13" class="spi"><th>26</th><td><a href="#">GPIO 7</a></td><td><a href="#" title="SPI 0 chip-select 1."><i class="fa-solid fa-magnifying-glass-arrow-right"></i>SPI0 CE1</a></td></tr>
+            <tr aria-label="Physical pin 14" class="i2c"><th>28</th><td><a href="#">GPIO 1</a></td><td><a href="#" title="I2C 0 clock."><i class="fa-solid fa-microchip"></i>I2C0 SCL</a></td></tr>
+            <tr aria-label="Physical pin 15" class="ground"><th>30</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 16" class="pwm"><th>32</th><td><a href="#">GPIO 12</a></td><td><a href="#" title="PWM0 channel 0"><i class="fa-solid fa-wave-square"></i>PWM0 CHAN0</a></td></tr>
+            <tr aria-label="Physical pin 17" class="ground"><th>34</th><td><a href="#">Ground</a></td><td></td></tr>
+            <tr aria-label="Physical pin 18" class="gpio"><th>36</th><td><a href="#">GPIO 16</a></td><td></td></tr>
+            <tr aria-label="Physical pin 19" class="i2s"><th>38</th><td><a href="#">GPIO 20</a></td><td><a href="#" title="I2S audio data-in."><i class="fa-solid fa-volume-off"></i>I2S0 SDI0</a></td></tr>
+            <tr aria-label="Physical pin 20" class="i2s"><th>40</th><td><a href="#">GPIO 21</a></td><td><a href="#" title="I2S audio data-ou."><i class="fa-solid fa-volume-off"></i>I2S0 SDO0</a></td></tr>
+            </tbody>
+        </table>
+    
+        </section>
 
 
         <h3>Pin-Mapping (BCM-Standard)</h3>
