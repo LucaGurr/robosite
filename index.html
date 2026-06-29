@@ -1,128 +1,218 @@
 <!DOCTYPE html>
-<html lang="de"> 
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>HASE Roboarm Website</title>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>Roboterarm HASE - Dokumentation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="animBody">
-        <h1 class="heading">HASE Roboarm</h1>
-    </div>
+    <header>
+        <div class="logo">Roboterarm <span>HASE</span></div>
+        <nav>
+            <a href="#overview">Übersicht</a>
+            <a href="#team">Team</a>
+            <a href="#hardware">Hardware</a>
+            <a href="#software">Software & IK</a>
+            <a href="#issues">Status</a>
+        </nav>
+    </header>
 
-    <div class="animBody">
-        <h2 class="heading">Wer sind wir?</h2>
-        <hr>
-    </div>
-    
-    <div class="animBody">
-        <p>Wir sind eine Gruppe von Schülern am Humboldt-Gymnasium Vaterstetten, welche einen Roboterarm, welcher sich über CLI sowie Web-UI steuern lässt, bauen.</p>
-    </div>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badges">
+                <span class="badge badge-rust">Rust 2024</span>
+                <span class="badge badge-pi">Raspberry Pi 4B+</span>
+                <span class="badge badge-dof">3 DOF</span>
+                <span class="badge badge-school">HGV Vaterstetten</span>
+            </div>
+            <h1>Roboterarm HASE</h1>
+            <p class="subtitle">Open-Source-Roboterarm und Steuerungssoftware, entwickelt von Schülern der Humboldt-Academy for Science and Engineering.</p>
+            <a href="#overview" class="cta-btn">Dokumentation entdecken</a>
+        </div>
+    </section>
 
-    <div class="animBody">
-        <h2 class="heading">Die Besonderheit</h2>
-        <hr>
-    </div>
-    
-    <div class="animBody">
-        <p>Das besondere an unserem Arm ist nicht nur die Bewegung der Motoren mittels Inverse Kinematics sowie einem angepassten Bresenham-Algorithmus, sondern insbesondere auch der austauschbare Endeffektor, an den verschiedene Module angeschlossen werden können.</p>
-    </div>
+    <section id="overview" class="section">
+        <h2>Projektübersicht</h2>
+        <p>Das Projekt realisiert einen vollständig quelloffenen Roboterarm. Die Steuerung berechnet eine <strong>3D-Inverskinematik</strong>, um Zielkoordinaten (XYZ) in Millimetern direkt in Motorschritte zu übersetzen.</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Achse</th>
+                        <th>Motor</th>
+                        <th>Gelenk / Funktion</th>
+                        <th>IK-Variable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Basisrotation</td>
+                        <td>M3</td>
+                        <td>Dreht den gesamten Arm um die vertikale Achse</td>
+                        <td><code>theta_base</code></td>
+                    </tr>
+                    <tr>
+                        <td>Schulter</td>
+                        <td>M1</td>
+                        <td>Erstes starres Verbindungsglied</td>
+                        <td><code>theta1</code></td>
+                    </tr>
+                    <tr>
+                        <td>Ellbogen</td>
+                        <td>M2</td>
+                        <td>Zweites starres Verbindungsglied</td>
+                        <td><code>theta2</code></td>
+                    </tr>
+                    <tr>
+                        <td>Auxiliary</td>
+                        <td>M4</td>
+                        <td>Reserviert – aktuell ungenutzt</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-    <div id="preloader">
-        <div class="spinner"></div>
-    </div>
+    <section id="team" class="section bg-alt">
+        <h2>Das Team</h2>
+        <div class="team-grid">
+            <div class="team-card retired">
+                <h3>Patrick</h3>
+                <p class="role">Softwareentwicklung, Kabelmanagement, PCB-Design</p>
+                <span class="status-tag">Alumni / Ruhezustand</span>
+            </div>
+            <div class="team-card active">
+                <h3>Luca</h3>
+                <p class="role">Organisation, Rust-Entwicklung, 3D-Design & Druck, Oszilloskop-Analyse</p>
+                <span class="status-tag">Aktiv</span>
+            </div>
+            <div class="team-card active">
+                <h3>Johannes</h3>
+                <p class="role">Go Webserver, Linux Setup & Guide</p>
+                <span class="status-tag">Aktiv</span>
+            </div>
+            <div class="team-card active">
+                <h3>Florian</h3>
+                <p class="role">Allgemeine Unterstützung bei allen Aufgaben</p>
+                <span class="status-tag">Aktiv</span>
+            </div>
+            <div class="team-card active">
+                <h3>Julian</h3>
+                <p class="role">Löten, Berechnungen & Design-Review</p>
+                <span class="status-tag">Aktiv</span>
+            </div>
+        </div>
+    </section>
 
-<script>
-    const VercelLogger = {
-        send: function(eventName, data) {
-            const logPayload = {
-                event: eventName,
-                timestamp: new Date().toISOString(),
-                url: window.location.href,
-                userAgent: navigator.userAgent,
-                screenResolution: `${window.screen.width}x${window.screen.height}`,
-                language: navigator.language,
-                connection: navigator.connection ? {
-                    effectiveType: navigator.connection.effectiveType,
-                    downlink: navigator.connection.downlink
-                } : 'unknown'
-            };
+    <section id="hardware" class="section">
+        <h2>Hardware & Elektronik</h2>
+        <p>Die Elektronik baut auf einem Raspberry Pi auf, welcher vier A4988 Schrittmotortreiber über die GPIO-Pins ansteuert.</p>
+        
+        <h3>Pin-Mapping (BCM-Standard)</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Motor</th>
+                        <th>Gelenk</th>
+                        <th>STEP Pin</th>
+                        <th>DIR Pin</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>M1</td>
+                        <td>Schulter (Arm 1)</td>
+                        <td><span class="pin">GPIO 17</span></td>
+                        <td><span class="pin">GPIO 27</span></td>
+                        <td><span class="status-ok">Aktiv</span></td>
+                    </tr>
+                    <tr>
+                        <td>M2</td>
+                        <td>Ellbogen (Arm 2)</td>
+                        <td><span class="pin">GPIO 22</span></td>
+                        <td><span class="pin">GPIO 23</span></td>
+                        <td><span class="status-ok">Aktiv</span></td>
+                    </tr>
+                    <tr>
+                        <td>M3</td>
+                        <td>Basisrotation</td>
+                        <td><span class="pin">GPIO 24</span></td>
+                        <td><span class="pin">GPIO 25</span></td>
+                        <td><span class="status-ok">Aktiv</span></td>
+                    </tr>
+                    <tr>
+                        <td>M4</td>
+                        <td>Auxiliary</td>
+                        <td><span class="pin">GPIO 5</span></td>
+                        <td><span class="pin">GPIO 6</span></td>
+                        <td><span class="status-unused">Ungenutzt</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-            const fullPayload = { ...logPayload, ...data };
+        <div class="warning-box">
+            <strong>ACHTUNG:</strong> Ein 100 µF Elektrolytkondensator muss nahe an den VMOT- und GND-Pins jedes Treibers platziert werden, um induktive Spannungsspitzen beim Abbremsen zu verhindern!
+        </div>
+    </section>
 
-            console.log(`[Local] ${eventName}`, fullPayload);
+    <section id="software" class="section bg-alt">
+        <h2>Software-Architektur & Kinematik</h2>
+        <div class="software-container">
+            <div class="software-block">
+                <h3>rustctl (Hauptprogramm)</h3>
+                <p>Geschrieben in modernem <strong>Rust (Edition 2024)</strong>. Es nutzt das Crate <code>rppal</code> für ultraschnellen GPIO-Zugriff und steuert die Treiber präzise an.</p>
+                <p>Die Bewegungssynchronisation erfolgt über einen modifizierten <strong>Bresenham-Algorithmus</strong>, damit alle Achsen gleichzeitig starten und stoppen.</p>
+            </div>
+            
+            <div class="software-block">
+                <h3>Schritt-Konvertierungsformel</h3>
+                <p>Um Winkelgrad in exakte Motorschritte zu übersetzen, nutzt das System folgende Berechnung:</p>
+                <div class="formula">
+                    Schritte = Winkel * ((Schritte_pro_Umdrehung * Mikroschritte) / 360°) * ÜBERSETZUNG
+                </div>
+                <p class="note">Standardwert im Projekt: 1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung).</p>
+            </div>
+        </div>
+    </section>
 
-            fetch('/api/log', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ event: eventName, data: fullPayload })
-            }).catch(err => console.error("Log telemetry failed:", err));
-        }
-    };
-    window.addEventListener('error', (event) => {
-        VercelLogger.send('JS_ERROR', {
-            message: event.message,
-            filename: event.filename,
-            lineno: event.lineno,
-            stack: event.error ? event.error.stack : null
-        });
-    });
+    <section id="issues" class="section">
+        <h2>Status & Zukunftsausblick</h2>
+        <div class="grid-2col">
+            <div>
+                <h3>Bekannte Einschränkungen</h3>
+                <ul class="styled-list">
+                    <li><strong>Keine Referenzfahrt:</strong> Keine Endschalter/Encoder verbaut; die absolute Position beim Start ist unbekannt.</li>
+                    <li><strong>Keine Rampe:</strong> Schritte starten mit konstanter Geschwindigkeit; abruptes Anlaufen kann zu Schrittverlusten führen.</li>
+                    <li><strong>Go-Webserver ausstehend:</strong> Die Web-Benutzeroberfläche befindet sich noch in der Planungsphase.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Geplante Features (Nächstes Semester)</h3>
+                <ul class="styled-list goal-list">
+                    <li>Homing-Sequenz mit Magnetsensoren oder mechanischen Endschaltern.</li>
+                    <li>Trapezförmige Beschleunigungs- und Verzögerungsprofile.</li>
+                    <li>Webserver-Core in Go für eine komfortable Steuerung über den Browser.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-    window.addEventListener('unhandledrejection', (event) => {
-        VercelLogger.send('PROMISE_REJECTION', {
-            reason: event.reason ? event.reason.toString() : 'Unknown reason'
-        });
-    });
+    <footer>
+        <p>Dokumentation Stand: Juni 2026 | Humboldt-Gymnasium Vaterstetten (HASE)</p>
+    </footer>
 
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const navEntries = performance.getEntriesByType('navigation');
-            if (navEntries.length > 0) {
-                const timing = navEntries[0];
-                VercelLogger.send('PERFORMANCE_METRICS', {
-                    pageLoadTimeMs: timing.duration,
-                    ttfbMs: timing.responseStart - timing.startTime, // Time to First Byte
-                    domReadyMs: timing.domContentLoadedEventEnd
-                });
-            }
-        }, 1000);
-    });
-
-    function initAnimations() {
-        const tl = gsap.timeline();
-
-        VercelLogger.send('PRELOADER_FADE_START', { gsapVersion: gsap.version });
-
-        tl.to("#preloader", {
-            opacity: 0,
-            duration: 2,
-            ease: "power2.inOut",
-            onComplete: () => {
-                document.getElementById("preloader").style.display = "none";
-                // Event: Preloader ist vollständig ausgeblendet
-                VercelLogger.send('PRELOADER_FADE_COMPLETE');
-            }
-        });
-
-        tl.from(".animBody", {
-            opacity: 0,
-            x: -50,             
-            duration: 0.8,      
-            stagger: 0.2,       
-            ease: "power2.out"  
-        }, "+=0.2");
-    }
-
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        initAnimations();
-    } else {
-        window.addEventListener("DOMContentLoaded", initAnimations);
-    }
-</script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="anim.js"></script>
 </body>
 </html>
