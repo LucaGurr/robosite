@@ -363,3 +363,231 @@ footer {
     color: #64748b;
     font-size: 0.9rem;
 }
+
+pinout {
+    --col-pin-bg: #1e293b;
+    --col-ground: #ef4444; /* Standard pinout color code for ground is often dark, but let's use a distinct deep slate/black to avoid red clash, wait, pinout.xyz uses black for ground, red for 5v */
+    --col-ground-bg: #1e293b;
+    --col-ground-txt: #94a3b8;
+    
+    --col-5v-bg: #dc2626;
+    --col-5v-txt: #ffffff;
+    
+    --col-3v3-bg: #d97706;
+    --col-3v3-txt: #ffffff;
+    
+    --col-i2c-bg: #8b5cf6;
+    --col-i2c-txt: #ffffff;
+    
+    --col-spi-bg: #ec4899;
+    --col-spi-txt: #ffffff;
+    
+    --col-uart-bg: #10b981;
+    --col-uart-txt: #ffffff;
+    
+    --col-pwm-bg: #f43f5e;
+    --col-pwm-txt: #ffffff;
+    
+    --col-i2s-bg: #06b6d4;
+    --col-i2s-txt: #ffffff;
+    
+    --col-gpclk-bg: #eab308;
+    --col-gpclk-txt: #0f172a;
+    
+    --col-gpio-bg: #243347;
+    --col-gpio-txt: #eae0cf;
+}
+
+/* Container Settings */
+.pinout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2px; /* Visual split down the middle spine */
+    margin: 3rem auto;
+    max-width: 1000px;
+    font-family: var(--font-mono);
+    background-color: var(--bg-dark);
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+/* Convert tables to flex rows for custom cell ordering */
+.pinout table {
+    border-collapse: collapse;
+    width: 50%;
+    min-width: 380px;
+}
+
+.pinout thead {
+    display: none; /* pinout.xyz hides standard headers for a cleaner look */
+}
+
+.pinout tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Space between rows */
+}
+
+.pinout tr {
+    display: flex;
+    align-items: center;
+    background-color: rgba(10, 41, 71, 0.4); /* Subtle var(--bg-card) transparency */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    height: 38px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.pinout tr:hover {
+    background-color: rgba(75, 86, 148, 0.15); /* var(--accent) interaction */
+    border-color: var(--accent);
+}
+
+/* Cell Sizing & Formatting */
+.pinout th, 
+.pinout td {
+    padding: 0 0.75rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+}
+
+.pinout th {
+    width: 45px;
+    justify-content: center;
+    font-weight: 700;
+    background-color: var(--col-pin-bg);
+    color: var(--text-main);
+}
+
+.pinout td:nth-child(2) { /* Name Column */
+    width: 110px;
+    font-weight: 600;
+}
+
+.pinout td:nth-child(3) { /* Function Column */
+    flex-grow: 1;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Links and Icons inside pinout */
+.pinout a {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.pinout i {
+    font-size: 0.85rem;
+    opacity: 0.75;
+}
+
+/* ==========================================
+   Spine Layout Magic (Mirroring Left vs Right)
+   ========================================== */
+
+/* Left Side (Odd Pins): Read Right-to-Left (Function -> Name -> Pin) */
+.pinout table.left tr {
+    flex-direction: row;
+}
+
+.pinout table.left th {
+    order: 3; /* Move pin index to the inside right edge */
+    border-radius: 0 4px 4px 0;
+}
+.pinout table.left td:nth-child(2) { 
+    order: 2; 
+    justify-content: flex-end;
+    text-align: right;
+}
+.pinout table.left td:nth-child(3) { 
+    order: 1; 
+    justify-content: flex-end;
+    text-align: right;
+}
+
+/* Right Side (Even Pins): Read Left-to-Right (Pin -> Name -> Function) */
+.pinout table.right tr {
+    flex-direction: row;
+}
+
+.pinout table.right th {
+    order: 1; /* Keep pin index on the inside left edge */
+    border-radius: 4px 0 0 4px;
+}
+.pinout table.right td:nth-child(2) { 
+    order: 2; 
+    justify-content: flex-start;
+    text-align: left;
+}
+.pinout table.right td:nth-child(3) { 
+    order: 3; 
+    justify-content: flex-start;
+    text-align: left;
+}
+
+/* ==========================================
+   Pinout.xyz Flat Color Code Mappings
+   ========================================== */
+
+/* Ground Pins */
+.pinout tr.ground th { background-color: #111; color: #fff; }
+.pinout tr.ground { color: var(--text-muted); }
+
+/* 3.3v Power */
+.pinout tr.power th { background-color: var(--col-3v3-bg); color: var(--col-3v3-txt); }
+.pinout tr.power td:nth-child(2) { color: #fbbf24; }
+
+/* 5v Power */
+.pinout tr.supply th { background-color: var(--col-5v-bg); color: var(--col-5v-txt); }
+.pinout tr.supply td:nth-child(2) { color: #f87171; }
+
+/* I2C Pins */
+.pinout tr.i2c th { background-color: var(--col-i2c-bg); color: var(--col-i2c-txt); }
+.pinout tr.i2c td { color: #c084fc; }
+
+/* SPI Pins */
+.pinout tr.spi th { background-color: var(--col-spi-bg); color: var(--col-spi-txt); }
+.pinout tr.spi td { color: #f472b6; }
+
+/* UART Pins */
+.pinout tr.uart th { background-color: var(--col-uart-bg); color: var(--col-uart-txt); }
+.pinout tr.uart td { color: #34d399; }
+
+/* PWM Pins */
+.pinout tr.pwm th { background-color: var(--col-pwm-bg); color: var(--col-pwm-txt); }
+.pinout tr.pwm td { color: #fb7185; }
+
+/* I2S Pins */
+.pinout tr.i2s th { background-color: var(--col-i2s-bg); color: var(--col-i2s-txt); }
+.pinout tr.i2s td { color: #22d3ee; }
+
+/* General Purpose Clocks */
+.pinout tr.gpclk th { background-color: var(--col-gpclk-bg); color: var(--col-gpclk-txt); }
+.pinout tr.gpclk td { color: #fbbf24; }
+
+/* Standard GPIO Pins */
+.pinout tr.gpio th { background-color: var(--col-gpio-bg); color: var(--col-gpio-txt); }
+
+/* Responsive adjustments */
+@media (max-width: 820px) {
+    .pinout {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .pinout table {
+        width: 100%;
+    }
+    .pinout table.left th { order: 1; border-radius: 4px 0 0 4px;}
+    .pinout table.left td:nth-child(2) { order: 2; justify-content: flex-start; text-align: left;}
+    .pinout table.left td:nth-child(3) { order: 3; justify-content: flex-start; text-align: left;}
+}
