@@ -28,7 +28,7 @@
                 <span class="badge badge-rust">Rust 1.96.x</span>
                 <span class="badge badge-pi">Raspberry Pi 4B+</span>
                 <span class="badge badge-dof">3 Degrees of Freedom</span>
-                <span class="badge badge-school">HGV</span>
+                <span class="badge badge-go">Go 1.26.x</span>
             </div>
             <h1>Roboterarm HASE</h1>
             <p class="subtitle">Open-Source-Roboterarm und Steuerungssoftware, entwickelt von Schülern der Humboldt-Academy for Science and Engineering.</p>
@@ -69,9 +69,9 @@
                         <td><code>theta2</code></td>
                     </tr>
                     <tr>
-                        <td>Auxiliary</td>
+                        <td>Endeffektor</td>
                         <td>M4</td>
-                        <td>Reserviert – aktuell ungenutzt</td>
+                        <td>Pins definiert, noch nicht verbunden</td>
                         <td>—</td>
                     </tr>
                 </tbody>
@@ -179,7 +179,7 @@
                 <div class="formula">
                     Schritte = Winkel * ((Schritte_pro_Umdrehung * Mikroschritte) / 360°) * ÜBERSETZUNG
                 </div>
-                <p class="note">Standardwert im Projekt: 1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung, also bei Schulter/Ellbogen).</p>
+                <p class="note">Projekt: 1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung, also bei Schulter/Ellbogen).</p>
             </div>
         </div>
     </section>
@@ -199,7 +199,7 @@
                 <h3>Geplante Features (Nächstes Schuljahr)</h3>
                 <ul class="styled-list goal-list">
                     <li>Homing-Sequenz mit Magnetsensoren oder mechanischen Endschaltern einbauen.</li>
-                    <li>Trapezförmige Beschleunigungs- und Verzögerungsprofile.</li>
+                    <li>S-Curve als Beschleunigungs- und Verzögerungsprofil.</li>
                     <li>Webserver-Core in Go für eine komfortable Steuerung über den Browser.</li>
                 </ul>
             </div>
