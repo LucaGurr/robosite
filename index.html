@@ -85,7 +85,7 @@
             <div class="team-card retired">
                 <h3>Patrick</h3>
                 <p class="role">Softwareentwicklung, Kabelmanagement, PCB-Design</p>
-                <span class="status-tag">Alumni / Ruhezustand</span>
+                <span class="status-tag">Inaktiv</span>
             </div>
             <div class="team-card active">
                 <h3>Luca</h3>
@@ -112,7 +112,7 @@
 
     <section id="hardware" class="section">
         <h2>Hardware & Elektronik</h2>
-        <p>Die Elektronik baut auf einem Raspberry Pi auf, welcher vier A4988 Schrittmotortreiber über die GPIO-Pins ansteuert.</p>
+        <p>Die Elektronik basiert auf einem Raspberry Pi, welcher vier A4988 Schrittmotortreiber über seine GPIO-Pins ansteuert.</p>
         
         <h3>Pin-Mapping (BCM-Standard)</h3>
         <div class="table-container">
@@ -169,8 +169,8 @@
         <div class="software-container">
             <div class="software-block">
                 <h3>rustctl (Hauptprogramm)</h3>
-                <p>Geschrieben in modernem <strong>Rust (Edition 2024)</strong>. Es nutzt das Crate <code>rppal</code> für ultraschnellen GPIO-Zugriff und steuert die Treiber präzise an.</p>
-                <p>Die Bewegungssynchronisation erfolgt über einen modifizierten <strong>Bresenham-Algorithmus</strong>, damit alle Achsen gleichzeitig starten und stoppen.</p>
+                <p>Geschrieben in modernem <strong>Rust 1.96.x</strong>. Es nutzt das Crate <code>rppal 0.22.1</code> für GPIO-Steuerung mit wenig Overhead (etwa 40µs delay).</p>
+                <p>Die Bewegung entlang einer Geraden linie erfolgt mittels eines modifizierten <strong>Bresenham-Algorithmus</strong>, der zusätzlich alle Achsen gleichzeitig starten und stoppen lässt.</p>
             </div>
             
             <div class="software-block">
@@ -179,7 +179,7 @@
                 <div class="formula">
                     Schritte = Winkel * ((Schritte_pro_Umdrehung * Mikroschritte) / 360°) * ÜBERSETZUNG
                 </div>
-                <p class="note">Standardwert im Projekt: 1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung).</p>
+                <p class="note">Standardwert im Projekt: 1° Gelenkwinkel entspricht exakt 142,2 Motorschritten (bei einer 16:1 Getriebeübersetzung, also bei Schulter/Ellbogen).</p>
             </div>
         </div>
     </section>
@@ -188,17 +188,17 @@
         <h2>Status & Zukunftsausblick</h2>
         <div class="grid-2col">
             <div>
-                <h3>Bekannte Einschränkungen</h3>
+                <h3>Aktuelle Probleme</h3>
                 <ul class="styled-list">
-                    <li><strong>Keine Referenzfahrt:</strong> Keine Endschalter/Encoder verbaut; die absolute Position beim Start ist unbekannt.</li>
-                    <li><strong>Keine Rampe:</strong> Schritte starten mit konstanter Geschwindigkeit; abruptes Anlaufen kann zu Schrittverlusten führen.</li>
-                    <li><strong>Go-Webserver ausstehend:</strong> Die Web-Benutzeroberfläche befindet sich noch in der Planungsphase.</li>
+                    <li><strong>Kein Homing:</strong> Keine Limit-switches verbaut; die absolute Position beim Start ist unbekannt (aktuell standart-position verwendet).</li>
+                    <li><strong>Keine Rampe:</strong> Schritte starten mit konstanter Geschwindigkeit; abruptes Anlaufen kann zu Schrittverlusten führen.(Funktion existiert bereits, ist noch nicht eingebunden)</li>
+                    <li><strong>Go-Webserver ausstehend:</strong> Die Web-Benutzeroberfläche befindet sich noch in der finalen Entwicklungsphase.</li>
                 </ul>
             </div>
             <div>
-                <h3>Geplante Features (Nächstes Semester)</h3>
+                <h3>Geplante Features (Nächstes Schuljahr)</h3>
                 <ul class="styled-list goal-list">
-                    <li>Homing-Sequenz mit Magnetsensoren oder mechanischen Endschaltern.</li>
+                    <li>Homing-Sequenz mit Magnetsensoren oder mechanischen Endschaltern einbauen.</li>
                     <li>Trapezförmige Beschleunigungs- und Verzögerungsprofile.</li>
                     <li>Webserver-Core in Go für eine komfortable Steuerung über den Browser.</li>
                 </ul>
