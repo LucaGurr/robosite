@@ -111,8 +111,7 @@ nav a:hover {
 }
 .badge-rust { background: rgba(224, 93, 38, 0.15); color: #ff7a45; border: 1px solid rgba(224, 93, 38, 0.3); }
 .badge-pi { background: rgba(197, 26, 74, 0.15); color: #ff4d7e; border: 1px solid rgba(197, 26, 74, 0.3); }
-.badge-dof { background: rgba(0, 180, 216, 0.15); color: #90e0ef; border: 1px solid rgba(0, 180, 216, 0.3); }
-.badge-go { background: rgba(0, 47, 135, 0.15); color: #002F87; border: 1px solid rgba(0, 47, 135, 0.3); }
+.badge-go { background: rgba(0, 180, 216, 0.15); color: #90e0ef; border: 1px solid rgba(0, 180, 216, 0.3); }
 
 .cta-btn {
     display: inline-block;
