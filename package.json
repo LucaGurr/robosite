@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/LucaGurr/robosite/issues"
   },
-  "homepage": "https://github.com/LucaGurr/robosite#readme"
+  "homepage": "https://github.com/LucaGurr/robosite#readme",
+  "dependencies": {
+    "@hashintel/refractive": "^0.0.4"
+  }
 }
