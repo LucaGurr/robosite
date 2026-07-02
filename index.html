@@ -246,20 +246,25 @@
 
             <div class="software-block">
                 <h3>Inverse-Kinematics</h3>
-                <p>placeholder</p>
+                <p>Berechnet aus einer Zielposition (x, y, z) die passenden Motorwinkel für den 2-Gelenk-Arm</p>
                 <div class="formula">
-                    placeholder
+                    θ_base = atan2(y, x) <br>
+                    r = √(x² + y²);  r_space = √(r² + z²) <br>
+                    θ1 = atan2(atan2(z, r) − atan2(l2·sin θ2, l1 + l2·cos θ2)) <br>
+                    θ2 = acos((r_space² − l1² − l2²) / (2·l1·l2)) <br>
+                    
                 </div>
-                <p class="note">placeholder</p>
+                <p class="note">Voraussetzung: r_space ≤ l1 + l2, sonst ist der Punkt nicht erreichbar</p>
             </div>
 
             <div class="software-block">
                 <h3>Bresenham-Algorithmus</h3>
-                <p>placeholder</p>
+                <p>Synchronisiert mehrere Motoren mit unterschiedlicher Schrittanzahl, sodass alle gleichzeitig starten und stoppen</p>
                 <div class="formula">
-                    placeholder
+                    k = ABS(steps) / max_steps <br>
+                    step_aktiv = MOD(t, k) == 0 <br>
                 </div>
-                <p class="note">placeholder</p>
+                <p class="note">Der Motor mit den meisten Schritten läuft durchgehend, alle anderen setzen proportional aus</p>
             </div>
         </div>
     </section>

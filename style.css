@@ -10,18 +10,24 @@
     --font-mono: 'JetBrains Mono', monospace;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
+}
+
+body {
+    -ms-overflow-style: none;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-    /* Firefox Support */
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) var(--bg-dark);
-}
 
 body {
     background-color: var(--bg-dark);
@@ -31,42 +37,29 @@ body {
     overflow-x: hidden;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
 
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
 
-::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 20px;
-    border: 2px solid var(--bg-dark);
-    transition: background 0.3s;
-}
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent); 
-}
-
-::-webkit-scrollbar-corner {
-    background: var(--bg-dark);
-}
 
 header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 5%;
+    align-items: flex-start;
+    padding: 1.5rem 5% 3rem;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    background: rgba(15, 20, 28, 0.85);
+    background: linear-gradient(
+        to bottom,
+        rgba(15, 20, 28, 0.55) 0%,
+        rgba(15, 20, 28, 0.35) 50%,
+        rgba(15, 20, 28, 0) 100%
+    );
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+    -webkit-backdrop-filter: blur(10px);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
 }
 
 header .logo {
